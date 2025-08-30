@@ -15,6 +15,9 @@ const App = () => {
     e.preventDefault();
     setSubmitted(form); // submit karne ke baad data store
   }
+  function removecard(){
+    setSubmitted(null)
+  }
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
@@ -80,6 +83,7 @@ const App = () => {
           <h1>Email: {submitted.email}</h1>
           <h1>Age: {submitted.age}</h1>
           <h1>Password: {submitted.password}</h1>
+          <button className="w-[150px] rounded-lg bg-gradient-to-r from-green-400 to-green-500 hover:from-green-400 hover:to-green-600 transition p-2" onClick={()=>removecard()} >Remove</button>
         </div>
       )}
     </div>

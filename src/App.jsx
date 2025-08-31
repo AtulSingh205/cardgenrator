@@ -22,7 +22,7 @@ const App = () => {
   }
 
   return (
-    <div className="h-screen gap-5 w-full flex  items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
+    <div className="h-screen gap-5 w-full flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
 
       <form
         onSubmit={handleForm}

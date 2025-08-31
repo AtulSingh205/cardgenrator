@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Card from "./component/Card";
 
 const App = () => {
   const [form, setForm] = useState({
@@ -9,28 +10,30 @@ const App = () => {
     password: "",
   });
 
-  const [submitted, setSubmitted] = useState(null);
+  const [submitted, setSubmitted] = useState([]);
 
   function handleForm(e) {
     e.preventDefault();
-    setSubmitted(form); // submit karne ke baad data store
+    setSubmitted([...submitted,form]); 
+    setForm({image:"",name:"",email:"",age:"",password:""})
   }
-  function removecard(){
-    setSubmitted(null)
+  function removecard(name){
+    setSubmitted(submitted.filter((itm)=>itm.name!==name))
   }
 
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
-      {/* FORM */}
+    <div className="h-screen gap-5 w-full flex  items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
+
       <form
         onSubmit={handleForm}
-        className="bg-[#0b1320] p-8 rounded-2xl shadow-2xl w-[300px] h-[500px] text-white"
+        className="bg-[#0b1320] p-8 rounded-2xl shadow-2xl w-[300px] h-[500px] text-white  sticky top-0 "
       >
         <h2 className="text-2xl font-bold text-center mb-4">User Form</h2>
 
         <input
           type="url"
           placeholder="Paste image URL"
+          value={form.image}
           className="w-full p-2 mb-3 rounded-lg bg-[#1a1f36] outline-none"
           onChange={(e) => setForm({ ...form, image: e.target.value })}
         />
@@ -38,6 +41,7 @@ const App = () => {
         <input
           type="text"
           placeholder="Enter Name"
+          value={form.name}
           className="w-full p-2 mb-3 rounded-lg bg-[#1a1f36] outline-none"
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
@@ -46,6 +50,7 @@ const App = () => {
           type="email"
           placeholder="Enter Email"
           className="w-full p-2 mb-3 rounded-lg bg-[#1a1f36] outline-none"
+          value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
 
@@ -53,6 +58,7 @@ const App = () => {
           type="number"
           placeholder="Enter Age"
           className="w-full p-2 mb-3 rounded-lg bg-[#1a1f36] outline-none"
+          value={form.age}
           onChange={(e) => setForm({ ...form, age: e.target.value })}
         />
 
@@ -60,6 +66,7 @@ const App = () => {
           type="password"
           placeholder="Enter Password"
           className="w-full p-2 mb-6 rounded-lg bg-[#1a1f36] outline-none"
+          value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
@@ -71,23 +78,9 @@ const App = () => {
         </button>
       </form>
 
-      {/* SHOW SUBMITTED DATA */}
-      {submitted && (
-        <div className="mt-6 p-4 w-[300px] bg-white rounded-lg shadow-lg text-black text-center">
-          <img
-            className="h-20 w-20 rounded-full mx-auto mb-3"
-            src={submitted.image}
-            alt="User"
-          />
-          <h1 className="font-bold">Name: {submitted.name}</h1>
-          <h1>Email: {submitted.email}</h1>
-          <h1>Age: {submitted.age}</h1>
-          <h1>Password: {submitted.password}</h1>
-          <button className="w-[150px] rounded-lg bg-gradient-to-r from-green-400 to-green-500 hover:from-green-400 hover:to-green-600 transition p-2" onClick={()=>removecard()} >Remove</button>
-        </div>
-      )}
+      <Card submitted={submitted} setSubmitted={setSubmitted}  removecard={removecard}/>
     </div>
-  );
+    )
 };
 
 export default App;
